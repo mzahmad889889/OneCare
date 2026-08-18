@@ -74,6 +74,27 @@
 }
 
 @layer components {
+  /* Testimonial columns drift slowly upward; the list is duplicated so the
+     loop is seamless. Honour prefers-reduced-motion. */
+  .marquee-col {
+    animation: marquee-up 60s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-col {
+      animation: none;
+    }
+  }
+
+  @keyframes marquee-up {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-50%);
+    }
+  }
+
   /* Hero backdrop: faint vertical pastel streaks over white, as in the comp. */
   .hero-wash {
     background:
