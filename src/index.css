@@ -1,47 +1,57 @@
 @import "tailwindcss";
 
+/* Every value below is read from the Figma REST node tree for frame
+   `OneCare Web` (34:217) — not eyeballed. Sizes are the design's own,
+   rounded to the nearest sensible pixel where the export carried
+   sub-pixel drift (e.g. 16.3 / 16.5 / 16.7 body → 16). */
 @theme {
+  /* Headings are Manrope; body copy is Inter. */
+  --font-display: "Manrope Variable", Manrope, ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif;
 
-  /* Type scale — measured off the Figma frame `OneCare Web` (node 34:217).
-     The file's own text styles are an html.to.design scrape of
-     drospecta.framer.website, so they carry sub-pixel noise (44.8 / 45.2 /
-     45.4 / 45.6 … all named "Heading 2"). These are those values rounded
-     into an actual scale. */
-  --text-display: 3.5rem; /* 56px — hero H1        (Figma 56.7 / 63)   */
-  --text-display--line-height: 1.08;
-  --text-h2: 2.8125rem; /* 45px — section heading  (Figma 44.8–45.9/60) */
+  /* --- type scale ------------------------------------------------- */
+  --text-display: 3.75rem; /* 60px — hero H1     Manrope 700, lh 60 (1.0) */
+  --text-display--line-height: 1;
+  --text-h2: 2.5rem; /* 40px — section head      Manrope 700, lh 48       */
   --text-h2--line-height: 1.2;
-  --text-h3: 1.875rem; /* 30px                     (Figma 30.4 / 40)   */
-  --text-h3--line-height: 1.3333;
-  --text-body: 1.125rem; /* 18px — body            (Figma 18 / 27)     */
-  --text-body--line-height: 1.5;
-  --text-label: 0.8125rem; /* 13px — eyebrow/label (Figma 12 – 13.7)   */
-  --text-label--line-height: 1.4;
+  --text-h3: 2.25rem; /* 36px — feature head     Manrope 600, lh 46.8     */
+  --text-h3--line-height: 1.3;
+  --text-stat: 2rem; /* 32px — stat numerals     Manrope 700, lh 32–38.4  */
+  --text-stat--line-height: 1.05;
+  --text-card: 1.125rem; /* 18px — card title    Manrope 700, lh 25.2     */
+  --text-card--line-height: 1.4;
+  --text-body: 1rem; /* 16px — body             Inter 400, lh 22.4        */
+  --text-body--line-height: 1.4;
+  --text-label: 0.875rem; /* 14px — label        Inter 500, lh 16.8       */
+  --text-label--line-height: 1.2;
 
-  /* Palette read off the design render. Close to the comp but NOT sampled
-     from Figma node data — swap for exact hex when the REST extraction runs. */
-  --color-brand-50: #eef4ff;
-  --color-brand-100: #dbe7fe;
-  --color-brand-400: #5b8df7;
-  --color-brand-500: #2e6ff2;
-  --color-brand-600: #1d54d4;
-
-  --color-ink: #0b0b0f;
-  --color-ink-soft: #2a2d35;
-  --color-ink-muted: #5a5f6b;
-  --color-ink-faint: #8b909c;
-
+  /* --- neutrals ---------------------------------------------------- */
+  --color-ink: #0d0d0d; /* dominant text/dark fill (138 uses) */
+  --color-ink-pure: #000000;
+  --color-ink-muted: #666666; /* body copy (121 uses)  */
+  --color-ink-faint: #999999; /* captions (112 uses)   */
   --color-surface: #ffffff;
-  --color-surface-subtle: #f7f8fa;
-  --color-surface-dark: #0b0b0c;
+  --color-surface-subtle: #fafafa;
+  --color-line: #e6e6e6;
 
-  --color-line: #e6e8ee;
+  /* --- accents ----------------------------------------------------- */
+  --color-accent: #009975; /* primary teal-green (46 uses) */
+  --color-accent-bright: #00b389; /* used at 10% as a tint  */
+  --color-accent-leaf: #46b96e;
+  --color-accent-deep: #1b6440;
+  --color-warn: #ff3c00; /* orange (24 uses)  */
+  --color-warn-alt: #ff4400;
+  --color-warn-soft: #ff6666;
+  --color-warn-amber: #fd7933;
+  --color-info: #0073ff;
+  --color-info-alt: #2d7bd9;
+  --color-surface-mint: #eef6e6;
 
-  --color-card-mint: #e7f4ec;
-  --color-card-sky: #e4eefb;
-  --color-card-rose: #fbe7ef;
-  --color-card-peach: #fcede3;
+  /* Dark card tints used by the use-case tiles. */
+  --color-tile-forest: #163300;
+  --color-tile-maroon: #320707;
+  --color-tile-olive: #21231d;
+  --color-tile-plum: #260a2f;
 
   --radius-pill: 999px;
 }
@@ -54,16 +64,31 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+  }
 }
 
 @layer components {
-  /* The soft iridescent wash behind the hero: mint → lavender → sky,
-     fading up into white. */
+  /* Hero backdrop: faint vertical pastel streaks over white, as in the comp. */
   .hero-wash {
     background:
-      radial-gradient(60% 45% at 18% 62%, #dff3ec 0%, transparent 62%),
-      radial-gradient(55% 45% at 50% 78%, #e8e4f7 0%, transparent 65%),
-      radial-gradient(60% 50% at 84% 58%, #dce8fa 0%, transparent 62%),
-      linear-gradient(180deg, #ffffff 0%, #ffffff 28%, #f4f7fb 100%);
+      linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(214, 235, 255, 0.5) 14%,
+        transparent 22%,
+        rgba(226, 246, 235, 0.55) 34%,
+        transparent 44%,
+        rgba(233, 228, 247, 0.5) 58%,
+        transparent 68%,
+        rgba(214, 235, 255, 0.45) 80%,
+        transparent 92%
+      ),
+      linear-gradient(180deg, #ffffff 0%, #ffffff 12%, #fbfcfe 70%, #ffffff 100%);
   }
 }
