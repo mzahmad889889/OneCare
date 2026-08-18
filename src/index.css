@@ -9,9 +9,9 @@
      45.4 / 45.6 … all named "Heading 2"). These are those values rounded
      into an actual scale. */
   --text-display: 3.5rem; /* 56px — hero H1        (Figma 56.7 / 63)   */
-  --text-display--line-height: 1.1;
+  --text-display--line-height: 1.08;
   --text-h2: 2.8125rem; /* 45px — section heading  (Figma 44.8–45.9/60) */
-  --text-h2--line-height: 1.3;
+  --text-h2--line-height: 1.2;
   --text-h3: 1.875rem; /* 30px                     (Figma 30.4 / 40)   */
   --text-h3--line-height: 1.3333;
   --text-body: 1.125rem; /* 18px — body            (Figma 18 / 27)     */
@@ -19,21 +19,31 @@
   --text-label: 0.8125rem; /* 13px — eyebrow/label (Figma 12 – 13.7)   */
   --text-label--line-height: 1.4;
 
-  /* PROVISIONAL palette — read by eye off the design render, NOT from the
-     Figma node data. Every value below is a placeholder to be replaced with
-     the exact hex once the REST extraction runs. */
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-500: #2563eb;
-  --color-brand-600: #1d4ed8;
-  --color-ink: #0a0a0a;
-  --color-ink-muted: #5f6368;
+  /* Palette read off the design render. Close to the comp but NOT sampled
+     from Figma node data — swap for exact hex when the REST extraction runs. */
+  --color-brand-50: #eef4ff;
+  --color-brand-100: #dbe7fe;
+  --color-brand-400: #5b8df7;
+  --color-brand-500: #2e6ff2;
+  --color-brand-600: #1d54d4;
+
+  --color-ink: #0b0b0f;
+  --color-ink-soft: #2a2d35;
+  --color-ink-muted: #5a5f6b;
+  --color-ink-faint: #8b909c;
+
   --color-surface: #ffffff;
   --color-surface-subtle: #f7f8fa;
-  --color-card-mint: #e8f5ec;
-  --color-card-sky: #e6eefc;
-  --color-card-rose: #fce9ef;
-  --color-card-peach: #fdeee4;
+  --color-surface-dark: #0b0b0c;
+
+  --color-line: #e6e8ee;
+
+  --color-card-mint: #e7f4ec;
+  --color-card-sky: #e4eefb;
+  --color-card-rose: #fbe7ef;
+  --color-card-peach: #fcede3;
+
+  --radius-pill: 999px;
 }
 
 @layer base {
@@ -42,5 +52,18 @@
     color: var(--color-ink);
     background: var(--color-surface);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+@layer components {
+  /* The soft iridescent wash behind the hero: mint → lavender → sky,
+     fading up into white. */
+  .hero-wash {
+    background:
+      radial-gradient(60% 45% at 18% 62%, #dff3ec 0%, transparent 62%),
+      radial-gradient(55% 45% at 50% 78%, #e8e4f7 0%, transparent 65%),
+      radial-gradient(60% 50% at 84% 58%, #dce8fa 0%, transparent 62%),
+      linear-gradient(180deg, #ffffff 0%, #ffffff 28%, #f4f7fb 100%);
   }
 }
