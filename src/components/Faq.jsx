@@ -50,7 +50,7 @@ const faqs = [
 ]
 
 export function Faq() {
-  const [open, setOpen] = useState<number | null>(0)
+  const [open, setOpen] = useState(0)
 
   return (
     <section id="faq" className="bg-white py-24">

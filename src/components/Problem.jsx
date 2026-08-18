@@ -77,7 +77,7 @@ export function Problem() {
       </div>
 
       <div className="mx-auto mt-16 grid max-w-[1200px] gap-6 px-8 lg:grid-cols-2">
-        {(['without', 'with'] as const).map((side) => (
+        {['without', 'with'].map((side) => (
           <div key={side}>
             <h3 className="text-card font-bold">
               {side === 'without' ? 'Without OneSoftCare' : 'With OneSoftCare'}

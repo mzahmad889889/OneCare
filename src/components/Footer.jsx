@@ -22,7 +22,7 @@ const company = [
 
 const socials = ['LinkedIn', 'X', 'Facebook', 'YouTube']
 
-function Column({ title, items }: { title: string; items: typeof product }) {
+function Column({ title, items }) {
   return (
     <div>
       <p className="text-[0.75rem] font-medium tracking-wider text-white/50">{title}</p>

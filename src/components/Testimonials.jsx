@@ -8,9 +8,8 @@ import { Eyebrow, Lead, SectionTitle } from './primitives'
    brand name is swapped to OneSoftCare here so nothing ships with a foreign
    product name; the quotes themselves still need writing by the client. */
 
-type Quote = { body: string; name: string; role: string; avatar: string }
-
-const columns: Quote[][] = [
+/** Each quote is { body, name, role, avatar }; one array per column. */
+const columns = [
   [
     {
       body: 'We automated our entire client onboarding and project briefing flow. What used to take our account team half a day now happens before we even open our laptops.',
@@ -80,7 +79,7 @@ const stats = [
   { value: '9,000+', label: 'Teams worldwide', delta: '34% year over year' },
 ]
 
-function Card({ q }: { q: Quote }) {
+function Card({ q }) {
   return (
     <figure className="rounded-2xl border border-line bg-white p-6">
       <blockquote className="text-body text-ink-soft">{q.body}</blockquote>

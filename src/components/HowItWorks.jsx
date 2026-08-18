@@ -40,7 +40,7 @@ const steps = [
   },
 ]
 
-function Panel({ step }: { step: (typeof steps)[number] }) {
+function Panel({ step }) {
   const p = step.panel
   return (
     <div className="rounded-3xl border border-line bg-surface-subtle p-8">
