@@ -1,7 +1,16 @@
-/** Small uppercase-ish kicker that sits above every section heading in the comp
- *  (Inter 500, ~11–12px, muted). */
-export function Eyebrow({ children }) {
-  return <p className="text-[0.6875rem] font-medium text-ink-faint">{children}</p>
+/** The kicker above every section heading. In the comp this is a bordered
+ *  white pill (Inter 500, ~11–12px), not plain text. `dark` flips it for the
+ *  near-black bands. */
+export function Eyebrow({ children, dark = false }) {
+  return (
+    <span
+      className={`inline-flex rounded-pill border px-3 py-1.5 text-[0.6875rem] font-medium ${
+        dark ? 'border-white/20 bg-white/5 text-white/80' : 'border-line bg-white text-ink'
+      }`}
+    >
+      {children}
+    </span>
+  )
 }
 
 /** Section heading — Manrope 700 at 40/48 on the 1440 canvas. */
