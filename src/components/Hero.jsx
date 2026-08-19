@@ -55,15 +55,16 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Composed export of Figma node 34:259 ("Hero Images") — the raw image
-          fill is an uncropped device set; this is the node as the comp masks
-          it, already faded out at the bottom edge. */}
-      <div className="relative mx-auto mt-12 max-w-[1248px] px-8">
+      {/* Composed export of Figma node 34:259 ("Hero Images"), trimmed to its
+          artwork — the node render carried ~400px of transparent padding
+          below the tablet, which was showing up as dead space before the
+          next section. */}
+      <div className="relative mx-auto mt-14 max-w-[1180px] px-8">
         <img
           src={asset('hero-visual.webp')}
           alt="OneSoftCare care overview dashboard shown on a tablet"
-          width={1600}
-          height={1150}
+          width={1444}
+          height={754}
           className="w-full"
           fetchPriority="high"
         />
