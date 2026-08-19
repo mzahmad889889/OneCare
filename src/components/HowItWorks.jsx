@@ -1,4 +1,5 @@
-﻿import { Chip, Eyebrow, Lead, SectionTitle } from './primitives'
+import { Bell, FileText, Zap } from 'lucide-react'
+import { Chip, Eyebrow, Lead, SectionTitle } from './primitives'
 
 const steps = [
   {
@@ -20,9 +21,9 @@ const steps = [
     panel: {
       label: 'Care Management Platform',
       rows: [
-        { kicker: 'Caregiver', title: 'Add Your Care Team' },
-        { kicker: 'Service User', title: 'Import Client Records' },
-        { kicker: 'Schedule', title: 'Create Your First Rota' },
+        { kicker: 'Caregiver', title: 'Add Your Care Team', Icon: FileText, tint: 'bg-[#e6f6ee] text-[#0f9d64]' },
+        { kicker: 'Service User', title: 'Import Client Records', Icon: FileText, tint: 'bg-[#f3e9fb] text-[#8b3fd4]' },
+        { kicker: 'Schedule', title: 'Create Your First Rota', Icon: Bell, tint: 'bg-[#e5eefc] text-[#2d6fe0]' },
       ],
     },
   },
@@ -40,53 +41,65 @@ const steps = [
   },
 ]
 
-function Panel({ step }) {
-  const p = step.panel
+function Panel({ panel }) {
   return (
-    <div className="rounded-3xl border border-line bg-surface-subtle p-8">
-      <p className="text-label font-semibold">{p.label}</p>
+    <div className="rounded-2xl border border-line bg-white p-8">
+      <p className="text-body text-ink-faint">{panel.label}</p>
 
-      {'tags' in p && p.tags && (
+      {panel.tags && (
         <>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {p.tags.map((t) => (
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            {panel.tags.map((t) => (
               <span
                 key={t}
-                className="rounded-xl border border-line bg-white px-4 py-2.5 text-body font-semibold"
+                className="rounded-xl border border-line px-6 py-4 text-body font-medium"
               >
                 {t}
               </span>
             ))}
           </div>
-          <p className="text-label mt-6 font-semibold text-accent">{p.footer}</p>
+          <p className="text-body mt-8 text-center text-ink-faint">{panel.footer}</p>
         </>
       )}
 
-      {'rows' in p && p.rows && (
-        <div className="mt-5 space-y-3">
-          {p.rows.map((r) => (
-            <div key={r.title} className="rounded-xl border border-line bg-white px-4 py-3">
-              <p className="text-[0.6875rem] font-medium text-ink-faint">{r.kicker}</p>
-              <p className="mt-0.5 text-[0.9375rem] font-semibold">{r.title}</p>
+      {panel.rows && (
+        <div className="mt-6 space-y-3">
+          {panel.rows.map((r) => (
+            <div
+              key={r.title}
+              className="flex items-center gap-4 rounded-xl border border-line px-4 py-3"
+            >
+              <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${r.tint}`}>
+                <r.Icon className="h-5 w-5" strokeWidth={1.7} />
+              </span>
+              <div>
+                <p className="text-[0.6875rem] font-medium text-ink-faint">{r.kicker}</p>
+                <p className="mt-0.5 text-[0.9375rem] font-semibold">{r.title}</p>
+              </div>
             </div>
           ))}
         </div>
       )}
 
-      {'events' in p && p.events && (
+      {panel.events && (
         <>
-          <div className="mt-5 flex items-center justify-between rounded-xl border border-line bg-white px-4 py-3">
-            <div>
-              <p className="text-[0.9375rem] font-semibold">{p.status}</p>
-              <p className="text-[0.6875rem] font-medium text-ink-faint">{p.synced}</p>
+          <div className="mt-10 flex items-center justify-between gap-4 rounded-xl border border-line px-4 py-3">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#e6f6ee] text-[#0f9d64]">
+                <Zap className="h-5 w-5" strokeWidth={1.7} />
+              </span>
+              <div>
+                <p className="text-[0.9375rem] font-semibold">{panel.status}</p>
+                <p className="text-[0.6875rem] font-medium text-ink-faint">{panel.synced}</p>
+              </div>
             </div>
-            <span className="flex items-center gap-1.5 rounded-pill bg-accent/10 px-2.5 py-1 text-[0.625rem] font-semibold text-accent">
+            <span className="flex shrink-0 items-center gap-1.5 text-[0.6875rem] font-medium text-accent">
               <span className="h-1.5 w-1.5 rounded-full bg-accent" />
               Live
             </span>
           </div>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {p.events.map((e) => (
+          <div className="mt-8 flex flex-wrap justify-center gap-2">
+            {panel.events.map((e) => (
               <Chip key={e} tone="accent">
                 {e}
               </Chip>
@@ -110,29 +123,42 @@ export function HowItWorks() {
         </Lead>
       </div>
 
-      <div className="mx-auto mt-16 max-w-[1200px] space-y-16 px-8">
-        {steps.map((s, i) => (
-          <div key={s.n} className="grid items-center gap-10 lg:grid-cols-2">
-            {/* Steps alternate sides in the comp: 1 left, 2 right, 3 left. */}
-            <div className={i === 1 ? 'lg:order-2' : ''}>
-              <div className="flex items-baseline gap-3">
-                <span className="text-card font-bold text-accent">{s.n}</span>
-                <h3 className="text-card font-bold">{s.title}</h3>
-              </div>
-              <p className="text-body mt-4 max-w-[460px] text-ink-muted">{s.body}</p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {s.chips.map((c) => (
-                  <Chip key={c}>{c}</Chip>
-                ))}
-              </div>
-            </div>
-            <div className={i === 1 ? 'lg:order-1' : ''}>
-              <Panel step={s} />
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* Centre timeline with a dot per step, as in the comp. */}
+      <div className="relative mx-auto mt-16 max-w-[1200px] px-8">
+        <div
+          aria-hidden
+          className="absolute top-12 bottom-12 left-1/2 hidden w-px -translate-x-1/2 bg-line lg:block"
+        />
 
+        <div className="space-y-20">
+          {steps.map((s, i) => (
+            <div key={s.n} className="relative grid items-center gap-10 lg:grid-cols-2 lg:gap-24">
+              <span
+                aria-hidden
+                className="absolute top-10 left-1/2 hidden h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-ink lg:block"
+              />
+
+              {/* Steps alternate sides: 1 left, 2 right, 3 left. */}
+              <div className={i === 1 ? 'lg:order-2' : ''}>
+                <div className="flex items-baseline gap-3">
+                  <span className="text-card font-bold text-ink-faint">{s.n}</span>
+                  <h3 className="text-card font-bold">{s.title}</h3>
+                </div>
+                <p className="text-body mt-4 max-w-[480px] text-ink-muted">{s.body}</p>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {s.chips.map((c) => (
+                    <Chip key={c}>{c}</Chip>
+                  ))}
+                </div>
+              </div>
+
+              <div className={i === 1 ? 'lg:order-1' : ''}>
+                <Panel panel={s.panel} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   )
 }
