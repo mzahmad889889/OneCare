@@ -2,8 +2,23 @@ import { asset } from '../lib/asset'
 
 export function Hero() {
   return (
-    <section className="hero-wash relative overflow-hidden">
-      <div className="mx-auto max-w-[1280px] px-8 pt-[168px] text-center">
+    <section className="relative overflow-hidden bg-white">
+      {/* The pastel band wash is Figma node 34:219 exported directly, rather
+          than an approximation in CSS. It sits 1440x900 at the top of the
+          section in the comp and fades out into white. */}
+      <img
+        src={asset('hero-bg.webp')}
+        alt=""
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-auto w-full select-none"
+        fetchPriority="high"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-full bg-gradient-to-b from-transparent via-transparent to-white"
+      />
+
+      <div className="relative mx-auto max-w-[1280px] px-8 pt-[168px] text-center">
         <span className="inline-flex items-center gap-2 rounded-pill border border-line bg-white/80 py-1 pr-4 pl-1 backdrop-blur">
           <span className="text-[10px] rounded-pill bg-info/10 px-2.5 py-1 font-semibold text-info">
             New
@@ -43,7 +58,7 @@ export function Hero() {
       {/* Composed export of Figma node 34:259 ("Hero Images") — the raw image
           fill is an uncropped device set; this is the node as the comp masks
           it, already faded out at the bottom edge. */}
-      <div className="mx-auto mt-12 max-w-[1248px] px-8">
+      <div className="relative mx-auto mt-12 max-w-[1248px] px-8">
         <img
           src={asset('hero-visual.webp')}
           alt="OneSoftCare care overview dashboard shown on a tablet"

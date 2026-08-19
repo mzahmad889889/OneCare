@@ -74,10 +74,31 @@
 }
 
 @layer components {
-  /* Testimonial columns drift slowly upward; the list is duplicated so the
-     loop is seamless. Honour prefers-reduced-motion. */
+  /* Testimonial columns drift slowly upward inside a clipped viewport, so the
+     cards never overflow the section. The list is duplicated so the loop is
+     seamless, and the top/bottom edges are feathered with a mask. */
+  .marquee-viewport {
+    height: 700px;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      #000 72px,
+      #000 calc(100% - 72px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      #000 72px,
+      #000 calc(100% - 72px),
+      transparent 100%
+    );
+  }
+
   .marquee-col {
     animation: marquee-up 60s linear infinite;
+    will-change: transform;
   }
 
   @media (prefers-reduced-motion: reduce) {
