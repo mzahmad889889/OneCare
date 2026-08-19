@@ -161,16 +161,12 @@ export function Testimonials() {
       </div>
 
       {/* The columns scroll inside this box and are clipped by it, so nothing
-          spills over the sections above or below. Hovering anywhere in the
-          box pauses all three columns so a card can be read. */}
-      <div className="marquee-viewport group mx-auto mt-14 max-w-[1200px] px-8">
+          spills over the sections above or below. Hovering a column pauses
+          only that column — the other two keep moving. */}
+      <div className="marquee-viewport mx-auto mt-14 max-w-[1200px] px-8">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {columns.map((col, i) => (
-            <div
-              key={i}
-              className="marquee-col space-y-6 group-hover:[animation-play-state:paused]"
-              style={{ animationDelay: `${i * -6}s` }}
-            >
+            <div key={i} className="marquee-col space-y-6" style={{ animationDelay: `${i * -6}s` }}>
               {[...col, ...col].map((q, j) => (
                 <Card key={`${q.name}-${j}`} q={q} />
               ))}

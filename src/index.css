@@ -101,6 +101,11 @@
     will-change: transform;
   }
 
+  /* Only the hovered column stops; the other two carry on. */
+  .marquee-col:hover {
+    animation-play-state: paused;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .marquee-col {
       animation: none;
